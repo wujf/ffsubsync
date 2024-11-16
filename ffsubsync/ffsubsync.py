@@ -294,7 +294,7 @@ def extract_subtitles_from_reference(args: argparse.Namespace) -> int:
             "-f",
             "srt",
             "-ss",
-            args.ffmpeg_args
+            args.ffmpeg_args,
         ]
     )
     if args.srtout is None:
@@ -691,6 +691,7 @@ def add_cli_only_args(parser: argparse.ArgumentParser) -> None:
         "--ffmpeg-args",
         default=None,
         help="Extra arguments to be passed to ffmpeg.",
+    )
     parser.add_argument(
         "--log-dir-path",
         default=None,
