@@ -257,6 +257,7 @@ def make_reference_pipe(args: argparse.Namespace) -> Pipeline:
                         non_speech_label=args.non_speech_label,
                         start_seconds=args.start_seconds,
                         ffmpeg_path=args.ffmpeg_path,
+                        ffmpeg_args=args.ffmpeg_args,
                         ref_stream=ref_stream,
                         vlc_mode=args.vlc_mode,
                         gui_mode=args.gui_mode,
@@ -279,6 +280,7 @@ def extract_subtitles_from_reference(args: argparse.Namespace) -> int:
     ffmpeg_args = [
         ffmpeg_bin_path("ffmpeg", args.gui_mode, ffmpeg_resources_path=args.ffmpeg_path)
     ]
+    ffmpeg_args.extend(args.ffmpeg_args)
     ffmpeg_args.extend(
         [
             "-y",
@@ -291,6 +293,8 @@ def extract_subtitles_from_reference(args: argparse.Namespace) -> int:
             "{}".format(stream),
             "-f",
             "srt",
+            "-ss",
+            args.ffmpeg_args
         ]
     )
     if args.srtout is None:
@@ -683,6 +687,10 @@ def add_cli_only_args(parser: argparse.ArgumentParser) -> None:
         default=None,
         help="Where to look for ffmpeg and ffprobe. Uses the system PATH by default.",
     )
+    parser.add_argument(
+        "--ffmpeg-args",
+        default=None,
+        help="Extra arguments to be passed to ffmpeg.",
     parser.add_argument(
         "--log-dir-path",
         default=None,
