@@ -257,7 +257,6 @@ def make_reference_pipe(args: argparse.Namespace) -> Pipeline:
                         non_speech_label=args.non_speech_label,
                         start_seconds=args.start_seconds,
                         ffmpeg_path=args.ffmpeg_path,
-                        ffmpeg_args=args.ffmpeg_args,
                         ref_stream=ref_stream,
                         vlc_mode=args.vlc_mode,
                         gui_mode=args.gui_mode,
